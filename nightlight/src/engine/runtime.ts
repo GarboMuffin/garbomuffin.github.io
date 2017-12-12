@@ -75,10 +75,10 @@ export class GameRuntime extends TaskRunner {
   public addAsset(src: string) {
     // uses the original src for storage
     // TODO: consider using the new src and adding that into getAsset?
-    const originalSrc = window._SRC_PREFIX + src;
+    const originalSrc = src;
 
     // add the extension and folder
-    src = `assets/${src}.png`;
+    src = `${window._SRC_PREFIX}assets/${src}.png`;
 
     console.log("adding asset", src);
 
