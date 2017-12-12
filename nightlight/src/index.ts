@@ -1,6 +1,9 @@
 import { Nightlight } from "./game";
 import { Task } from "./engine/task";
 
+// TODO: type definitions
+window._SRC_PREFIX = window._SRC_PREFIX || "";
+
 const game = new Nightlight();
 
 // add in all of our assets
