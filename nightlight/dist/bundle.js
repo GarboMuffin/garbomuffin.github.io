@@ -884,6 +884,7 @@ class FallingBlock extends __WEBPACK_IMPORTED_MODULE_0__block__["b" /* SolidBloc
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(15);
 
+window._SRC_PREFIX = window._SRC_PREFIX || "";
 const game = new __WEBPACK_IMPORTED_MODULE_0__game__["a" /* Nightlight */]();
 // add in all of our assets
 game.addAsset("player/idle");
@@ -1139,7 +1140,7 @@ class GameRuntime extends __WEBPACK_IMPORTED_MODULE_6__task__["b" /* TaskRunner 
         // TODO: consider using the new src and adding that into getAsset?
         const originalSrc = src;
         // add the extension and folder
-        src = `assets/${src}.png`;
+        src = `${window._SRC_PREFIX}assets/${src}.png`;
         console.log("adding asset", src);
         // create a promise that will resolve when onload is called or
         // reject when onerror is called
