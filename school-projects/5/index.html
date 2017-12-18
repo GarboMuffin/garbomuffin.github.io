@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Weber Summative</title>
+		<style>
+			body {
+				background-color: black;
+				color: white;
+			}
+			.foot {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+			}
+			.mid {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%);
+				width: 100%;
+			}
+			a {
+				color: aqua;
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+			a:active {
+				color: red;
+			}
+			
+			.rainbow {
+			  animation: rainbow 10s linear 0s infinite;
+			}
+
+			@keyframes rainbow {
+			  0% {
+				  color: #F00;
+			  }
+			  17% {
+				  color: #FF0;
+			  }
+			  33% {
+				  color: #0F0;
+			  }
+			  50% {
+				  color: #0FF;
+			  }
+			  67% {
+				  color: #00F;
+			  }
+			  84% {
+				  color: #F0F;
+			  }
+			  100% {
+				  color: #F00;
+			  }
+			}
+			
+			table, td, th {
+				border: 1px white solid;
+			}
+			
+			.center {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%);
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<marquee>PLEASE NEVER USE A MARQUEE</marquee>
+		
+		<div class="center">
+			<h1><a href="Every HTML Element.html">EVERY HTML ELEMENT</a></h1>
+			<hr>
+			<h1><a href="https://garbomuffin.github.io/nightlight/">Play a game</a></h1>
+			<hr>
+			<h1><a href="Marquee.html">Marquees are obsolete</a></h1>
+			<hr>
+			
+			<table>
+				<tr>
+					<th>How many tables a site has</th>
+					<th>How many tables a site actually needs</th>
+				</tr>
+				<tr>
+					<td>0</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>0</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="mid"><marquee>&lt;marquee&gt; is <a class="rainbow" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/marquee">OBSOLETE</a></marquee></div>
+		<div class="foot"><marquee>PLEASE NEVER USE A MARQUEE</marquee></div>
+	</body>
+</html>
