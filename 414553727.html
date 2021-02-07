@@ -9,6 +9,7 @@ Please don't use this as a reference for how you should write JavaScript.
 <html>
   <head>
     <meta name="robots" content="noindex">
+    <title>weird note block thing</title>
     <style>
       body {
         font-family: sans-serif;
@@ -536,8 +537,9 @@ Please don't use this as a reference for how you should write JavaScript.
       <!-- add `multiple` to select multiple files. The output will be something you can import to Scratch through right click -> import -->
       <input type="file" accept=".nbs">
     </div>
-    <div>
+    <div style="display: flex; align-items: center;">
       <textarea autocomplete="off" readonly onclick="this.focus();this.select();">result will be available here</textarea>
+      &lt;&lt;&lt;&lt;&lt;&lt;&lt; copy this text
     </div>
 
     <p>Supported features:</p>
@@ -626,13 +628,17 @@ Please don't use this as a reference for how you should write JavaScript.
 
             // song data
             for (var i = 0; i < song.size; i++) {
+              let r = '';
               for (const layer of song.layers) {
                 const n = layer.notes[i];
                 if (n) {
-                  result += instruments[n.instrument.id].toString().padStart(2, '0');
-                  result += n.key.toString().padStart(2, '0').substr(0, 2);
+                  r += instruments[n.instrument.id].toString().padStart(2, '0');
+                  r += n.key.toString().padStart(2, '0').substr(0, 2);
+                } else {
+                  r += ' ';
                 }
               }
+              result += r.trimEnd();
               result += '`';
             }
 
