@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <title>Nightlight</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+  </head>
+
+
+  <!--
+
+    Hey kid,
+
+    Want some cheats?
+
+    https://garbomuffin.github.io/nightlight/?cheats=on
+
+  -->
+
+  <body>
+    <img src="assets/site/nightlight.png" height="32" alt="Nightlight">
+
+    <p>
+      Play <a href="https://scratch.mit.edu/projects/150752251/">the original</a>
+      by <a href="https://scratch.mit.edu/users/TriforceMayhem/">TriforceMayhem</a>.
+    </p>
+
+    <p>Background music has been removed because it's not clear which songs I can use without violating copyright. Sorry.</p>
+
+    <div id="container">
+      <div id="canvas">
+        <div id="menu-container">
+          <div id="menu-background"><img src="assets/thumb.png" width="100%"></div>
+          <div id="loading-screen" class="menu">
+            <img src="assets/site/loading.png">
+          </div>
+          <div id="menu-screen" class="menu">
+            <div><button id="play-button">Start Game</button></div>
+            <div><button id="load-code-button">Load Level Code</button></div>
+            <div><button id="load-code-url-button">Load Level Code From URL</button></div>
+          </div>
+          <div id="loading-screen-progress-bar" class="progress-bar">
+            <div class="progress-bar-inside" id="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="level-editor-ui" class="level-editor-ui">
+        <label>
+          Mode:
+          <select autocomplete="off" id="level-editor-option-mode">
+            <option selected value="0">Block</option>
+            <option value="1">Jump Dots</option>
+            <option value="2">Text</option>
+            <option value="3">Boss</option>
+            <option value="4">Player Spawn</option>
+          </select>
+        </label>
+
+        <div id="level-editor-mode-block" class="level-editor-mode">
+          <div><b>Active block:</b> (<span id="level-editor-active-block-description"></span>)</div>
+          <div>
+            <img id="level-editor-active-block-image">
+          </div>
+  
+          <div id="level-editor-block-gallery"></div>
+        </div>
+
+        <div id="level-editor-mode-text" class="level-editor-mode">
+          <div>
+            <label>Snap to grid: <input id="level-editor-text-snap" type="checkbox" checked></label>
+          </div>
+          <br>
+          <div>
+            <b>Left click on empty space</b> to place text.<br>
+            <b>Left click</b> on an existing text to change its text.<br>
+            <b>Right click</b> on an existing text to remove it.<br>
+            <b>Middle click</b> on an existing text to move it.<br>
+            <small>You may have to click twice for mouse actions to register.</small>
+          </div>
+        </div>
+
+        <div id="level-editor-mode-jump-lights" class="level-editor-mode">
+          <div>
+            <label>Snap to grid: <input id="level-editor-jump-lights-snap" type="checkbox" checked></label>
+          </div>
+          <br>
+          <div>
+            <b>Left click on empty space</b> to place a dot.<br>
+            <b>Left click</b> on an existing dot to move/remove it (keeps outline).<br>
+            <b>Right click</b> on an existing dot to remove it.
+          </div>
+        </div>
+
+        <div id="level-editor-mode-boss" class="level-editor-mode">
+          <label>
+            Boss:
+            <select id="level-editor-boss-selection">
+              <option value="" selected>None</option>
+              <option value="sword">Sword</option>
+              <option value="noss1">Noss 1</option>
+              <option value="noss2">Noss 2</option>
+            </select>
+          </label>
+
+          <div id="level-editor-boss-sword">
+            <div>
+              <label>Health: <input id="level-editor-boss-sword-health" type="number" min="0" value="3"></label>
+            </div>
+            <div>
+              <label>Blocks from top: <input id="level-editor-boss-sword-blocks-from-top" type="number" min="0" max="23" value="14"></label>
+            </div>
+          </div>
+          <div id="level-editor-boss-noss1"></div>
+          <div id="level-editor-boss-noss2"></div>
+
+          <p><b>More options soon<sup>TM</sup>.</b></p>
+        </div>
+
+        <div id="level-editor-mode-spawn" class="level-editor-mode">
+          <div>
+            <label>
+              Spawn:
+              <select id="level-editor-spawn-select">
+                <option value="default" selected>Default</option>
+                <option value="random">Random</option>
+                <option value="range">Range</option>
+                <option value="point">Point</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Always show spawn <small>(useless for default)</small>:
+              <input type="checkbox" id="level-editor-spawn-always-show">
+            </label>
+          </div>
+
+          <div id="level-editor-spawn-random">
+            <div><label>Min X: <input type="number" value="0" min="0" max="480" id="level-editor-spawn-random-min-x"></label></div>
+            <div><label>Max X: <input type="number" value="480" min="0" max="480" id="level-editor-spawn-random-max-x"></label></div>
+            <div><label>Min Y: <input type="number" value="0" min="0" max="360" id="level-editor-spawn-random-min-y"></label></div>
+            <div><label>Max Y: <input type="number" value="360" min="0" max="360" id="level-editor-spawn-random-max-y"></label></div>
+          </div>
+
+          <div id="level-editor-spawn-range">
+            <div><label>Min X: <input type="number" value="0" min="0" max="480" id="level-editor-spawn-range-min-x"></label></div>
+            <div><label>Max X: <input type="number" value="480" min="0" max="480" id="level-editor-spawn-range-max-x"></label></div>
+            <div><label>Require solid block: <input type="checkbox" checked id="level-editor-spawn-range-solid"></label></div>
+          </div>
+
+          <div id="level-editor-spawn-point">
+            <div><label>X: <input type="number" value="0" min="0" max="480" id="level-editor-spawn-point-x"></label></div>
+            <div><label>Y: <input type="number" value="344" min="0" max="360" id="level-editor-spawn-point-y"></label></div>
+            <div><button id="level-editor-spawn-point-select">Select a point</button></div>
+            <div><label>Algin Selection <input type="checkbox" checked id="level-editor-spawn-point-select-align"></label></div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div>
+          <button id="level-editor-get-json-code">Get JSON</button>
+          <button id="level-editor-import-code">Import</button>
+          <button id="level-editor-open-level">Open Level</button>
+          <div><textarea id="level-editor-code-output" readonly onclick="this.focus();this.select();"></textarea></div>
+        </div>
+
+        <hr>
+
+        <div id="level-editor-options">
+          <div><label>Dark:<input id="level-editor-option-dark" type="checkbox"></label></div>
+          <div><label>Stars:<input id="level-editor-option-stars" type="checkbox" checked></label></div>
+          <div>
+            <label>
+              Background:
+              <select id="level-editor-option-background">
+                <option selected value="black">Black</option>
+                <option value="castle">Castle</option>
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              Music:
+              <select id="level-editor-option-music">
+                <option selected value="music/exploration">Exploration</option>
+                <option value="music/blackroad/1,music/blackroad/2">Black Road</option>
+                <option value="music/boss/1,music/boss/2">Boss</option>
+                <option value="music/netherslament">Nether's Lament</option>
+                <option value="music/challenge">Challenge</option>
+                <option value="music/finalboss/1,music/finalboss/2">Final Boss</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="lower-interface">
+      <div id="ingame-interface-container">
+        <label>Volume: <input type="range" min="0" max="100" id="volume"></label><span id="volume-level"></span>
+
+        <div>There's also a <a href="?m=leveleditor&welcome=1">level editor</a>.</div>
+
+        <div id="cheats-interface" style="display:none;">
+          <button onclick="runtime.level++;runtime.renderLevel();">Next level</button>
+          <button onclick="runtime.level--;runtime.renderLevel();">Prev level</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="level-editor-welcome" style="display: none;">
+      <div id="level-editor-welcome-content">
+        <div>
+          <b>Welcome to the level editor!</b>
+        </div>
+        <div>
+          Save your levels with "Get JSON" and import them with "Import"
+        </div>
+        <div>
+          Play your levels by either pressing "Open Level" or by pasting the level JSON into "Load Level Code" in the normal main menu.
+        </div>
+        <div>
+          Remove <code>?m=leveleditor</code> from the URL to return to the game.
+        </div>
+        <div>
+          Click to place blocks, right click to delete. Change the "Mode" to edit different aspects of a level.
+        </div>
+      </div>
+
+      <div>
+        <small><a id="level-editor-welcome-toggle" href="#" onclick="return false;">hide welcome text</a></small>
+      </div>
+    </div>
+
+    <script src="dist/bundle.js"></script>
+  </body>
+</html>

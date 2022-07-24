@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "removeComments": false,
+    "strict": true,
+    "allowJs": true,
+    "module": "es6",
+  }
+}

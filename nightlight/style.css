@@ -1,0 +1,202 @@
+/* #region Make it look nice */
+
+/* link styles - colors from bootstrap because they look nice */
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #23527c;
+  text-decoration: underline;
+}
+
+canvas {
+  display: block;
+}
+
+img {
+  /* make images appear pixelated. at least one of these should work for nearly any browser. */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+td {
+  vertical-align: top;
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 480px;
+}
+
+.position-absolute-bottom {
+  position: absolute;
+  bottom: 0;
+}
+
+#canvas {
+  position: relative;
+  flex-shrink: 0;
+  width: 480px;
+  height: 360px;
+  padding-right: 10px;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.flex-item {
+  padding-right: 10px;
+}
+
+#lower-interface {
+  padding-top: 5px;
+  opacity: 0.5;
+  transition: opacity 0.1s linear;
+}
+#lower-interface:hover {
+  opacity: 1;
+}
+
+/* #endregion */
+
+/* #region Progress Bar */
+
+.progress-bar {
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+.progress-bar-inside {
+  background-color: #7baaf7;
+  height: 100%;
+  width: 0;
+}
+
+#loading-screen-progress-bar {
+  height: 12px;
+  width: 480px;
+  position: absolute;
+  bottom: 0;
+}
+
+/* #endregion */
+
+/* #region Menu */
+
+.menu {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#menu-container {
+  width: 100%;
+  height: 100%;
+}
+
+#menu-background {
+  position: absolute;
+  z-index: -1;
+  filter: brightness(50%);
+}
+
+#menu-background.active {
+  animation-duration: 1s;
+  animation-name: background-opacity-increase;
+  filter: brightness(100%);
+}
+
+#menu-screen {
+  display: none;
+}
+
+@keyframes background-opacity-increase {
+  from {
+    filter: brightness(50%);
+  }
+
+  to {
+    filter: brightness(100%);
+  }
+}
+
+#load-code-url-button {
+  display: none;
+}
+
+/* #endregion */
+
+/* #region Level Editor */
+
+#level-editor-ui {
+  text-align: left;
+  min-width: 320px;
+}
+
+.level-editor-ui {
+  display: none;
+  position: relative;
+  text-justify: initial;
+}
+
+.level-editor-mode {
+  display: none;
+}
+
+#level-editor-options {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -5px;
+}
+
+#level-editor-options * {
+  margin-left: 5px;
+}
+
+#level-editor-block-gallery {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  height: calc(18px * 4);
+  width: calc(18px * 24);
+}
+
+#level-editor-block-gallery .level-editor-gallery-item {
+  width: 16px;
+  height: 16px;
+  padding: 1px;
+}
+
+#level-editor-spawn-point,
+#level-editor-spawn-random,
+#level-editor-spawn-range,
+#level-editor-boss-sword,
+#level-editor-boss-noss1,
+#level-editor-boss-noss2 {
+  display: none;
+}
+
+#level-editor-welcome-content > * {
+  padding-bottom: 3px;
+}
+
+#level-editor-code-output {
+  height: 30px;
+}
+
+/* #endregion */
