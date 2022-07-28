@@ -61,19 +61,19 @@ export class Nightlight extends GameRuntime {
   //
 
   public setBackgroundMusic(music: TSound[]) {
-    // for (const sound of this.backgroundMusic) {
-    //   this.stopSound(sound);
-    //   sound.loop = false;
-    //   sound.onended = () => {};
-    // }
+    for (const sound of this.backgroundMusic) {
+      this.stopSound(sound);
+      sound.loop = false;
+      sound.onended = () => {};
+    }
 
-    // this.backgroundMusic = music;
-    // for (const sound of music) {
-    //   sound.onended = () => this.nextBackgroundMusic();
-    // }
-    // if (music.length > 0) {
-    //   this.playSound(music[0]);
-    // }
+    this.backgroundMusic = music;
+    for (const sound of music) {
+      sound.onended = () => this.nextBackgroundMusic();
+    }
+    if (music.length > 0) {
+      this.playSound(music[0]);
+    }
   }
 
   private nextBackgroundMusic() {
@@ -233,7 +233,7 @@ export class Nightlight extends GameRuntime {
 
     // if a level has new background music
     if (level.backgroundMusic) {
-      // this.setBackgroundMusic(level.backgroundMusic.map((i) => this.getSound(i)));
+      this.setBackgroundMusic(level.backgroundMusic.map((i) => this.getSound(i)));
     }
 
     // if a level has handlers

@@ -258,15 +258,15 @@ game.addSound("boss/noss/shadow4");
 game.addSound("boss/shadow5");
 
 // background music
-// game.addSound("music/exploration");
-// game.addSound("music/netherslament");
-// game.addSound("music/challenge");
-// game.addSound("music/boss/1");
-// game.addSound("music/boss/2");
-// game.addSound("music/blackroad/1");
-// game.addSound("music/blackroad/2");
-// game.addSound("music/finalboss/1");
-// game.addSound("music/finalboss/2");
+game.addSound("music/exploration");
+game.addSound("music/netherslament");
+game.addSound("music/challenge");
+game.addSound("music/boss/1");
+game.addSound("music/boss/2");
+game.addSound("music/blackroad/1");
+game.addSound("music/blackroad/2");
+game.addSound("music/finalboss/1");
+game.addSound("music/finalboss/2");
 
 // html elements
 const progressBar = getElementById<HTMLProgressElement>("progress-bar");
