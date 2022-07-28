@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Easier Prompter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Easier Prompter is the teleprompter that just works. Just enter your script and hit play. No login, no ads, no fuss. Easier than Easy Prompter.">
+
+    <style>
+      body {
+        /* sans-serif looks better than serif usually */
+        font-family: sans-serif;
+      }
+
+      /* apply basic padding */
+      @media only screen and (min-width: 760px) {
+        body {
+          padding: 0 10%;
+        }
+      }
+
+      /* link styles - colors from bootstrap because they look nice */
+      a {
+        color: #337ab7;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #23527c;
+        text-decoration: underline;
+      }
+    </style>
+
+    <!-- fullscreen warnings -->
+    <!-- <noscript> or IE <= 8 -->
+    <style>
+      .fullscreen-warning {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        color: white;
+        background-color: black;
+        z-index: 100;
+        overflow: hidden;
+
+        /* centering */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .fullscreen-warning h1 {
+        font-size: 3em;
+      }
+    </style>
+
+    <!-- Element styling -->
+    <style>
+      /* disable centering */
+      tr, td, table {
+        vertical-align: top;
+        text-align: left;
+      }
+    </style>
+
+    <!-- Prompter styling -->
+    <style>
+      #prompter {
+        position: absolute;
+        background-color: black;
+        color: white;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      #prompter-options {
+        background-color: black;
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+        bottom: 0;
+        border-top: 1px white solid;
+        padding: 10px 0;
+      }
+
+      #prompter-options button {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
+      #prompter-caret {
+        margin: 0;
+      }
+
+      #prompter-lines {
+        /* move text slightly away from caret */
+        padding-left: 0.1em;
+
+        /* make sure things aren't alligned centered (cough cough ie 11 cough cough) */
+        text-align: left;
+
+        /* wtf? */
+        /* don't worry, it works (i don't know either) */
+        width: calc(100vw - 1em);
+
+        /* transform does change very often */
+        /* i've done tests, and this does reduce CPU usage and increase performance */
+        will-change: transform;
+      }
+
+      #prompter-lines p {
+        margin: 0;
+
+        /* empty lines should display as empty space */
+        min-height: 1em;
+
+        /* preserve whitespace and also still wrap text */
+        white-space: pre-wrap;
+
+        /* break long words */
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      /* Options */
+
+      #options-exit {
+        /* move the exit button to the right TODO: find better place for it */
+        float: right;
+      }
+    </style>
+
+    <!-- Editor Styling -->
+    <style>
+      #start-button {
+        width: 100%;
+        height: 300%;
+        font-size: 1.5em;
+      }
+
+      #save-button {
+        width: 100%;
+      }
+
+      #reset-button {
+        width: 100%;
+      }
+
+      #main {
+        height: 100%;
+      }
+
+      #editor {
+        height: 50%;
+      }
+
+      #editor-options-container input[type="text"],
+      #editor-options-container input[type="number"] {
+        width: 50%;
+      }
+
+      #text-input-container {
+        width: 70%;
+      }
+
+      #text-input {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      #about-questions h3 {
+        margin-bottom: 0;
+      }
+
+      #about-questions div ul {
+        margin-top: 0;
+      }
+
+      #about-questions * {
+        margin-top: 0;
+      }
+
+      #sw-support.maybe {
+        color: #dd8100;
+      }
+      #sw-support.no {
+        color: #c61403;
+      }
+      #sw-support.yes {
+        color: #097200;
+      }
+    </style>
+
+    <!-- Inital State -->
+    <style>
+      #prompter {
+        display: none;
+      }
+      #main {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>
+      <div class="fullscreen-warning">
+        <div>
+          <h1>Enable JavaScript</h1>
+        </div>
+      </div>
+    </noscript>
+
+    <div id="main">
+      <h1>Easier Prompter</h1>
+
+      <hr>
+
+      <p>Easier Prompter: The easier teleprompter. Enter your script and press start. It just works.</p>
+
+      <div id="editor">
+        <table>
+          <tr>
+            <td id="text-input-container">
+              <label for="text-input"><b>Enter your script:</b></label>
+              <textarea id="text-input"
+                        placeholder="Enter your script here!"
+                        rows="20"
+                        spellcheck="true"></textarea>
+            </td>
+
+            <td id="editor-options-container">
+              <div><b>Options:</b></div>
+              <div><label>Font size: <input type="number" id="options-font-size" min="0" required step="any"></label></div>
+              <div><label>Font family: <input type="text" id="options-font-family" required></label></div>
+              <div><label>Bold text: <input type="checkbox" id="options-bold-text"></label></div>
+              <div><label>End text: <input type="text" id="options-end-text"></label></div>
+              <div><label>Line height: <input type="number" id="options-line-height" required max="3" min="0" step="any"></label></div>
+              <div><label>Unsaved changes warning: <input type="checkbox" id="options-unsaved-changes-warning"></label></div>
+              <div><label>Show caret: <input type="checkbox" id="options-show-caret"></label></div>
+
+              <button id="save-button">Save</button>
+              <button id="reset-button">Reset</button>
+            </td>
+          </tr>
+        </table>
+
+        <button id="start-button">Start</button>
+      </div>
+
+      <hr>
+
+      <div id="about-questions">
+        <div>
+          <h3>What is this?</h3>
+          <p>
+            This is a simple teleprompter. You enter your script above then press the start button above.
+            No ads and no login. It just works.
+          </p>
+        </div>
+
+        <div>
+          <h3>How is this different than any other teleprompter?</h3>
+          <ul>
+            <li>Free.</li>
+            <li>No account.</li>
+            <li>No ads.</li>
+            <li>Does not depend on Flash or Unity.</li>
+            <li>Page loads <b>offline</b> in modern browsers if you load the page once. Your browser <span id="sw-support" class="maybe">might be</span> supported.</li>
+            <li><a href="https://github.com/GarboMuffin/garbomuffin.github.io/tree/master/easierprompter">Open source</a>.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Keyboard shortcuts</h3>
+          <ul>
+            <li><kbd>Space</kbd> - Start or stop</li>
+            <li><kbd>Escape</kbd> - Stop teleprompter and jump to the top or exit teleprompter if already at the top</li>
+            <li><kbd>Up Arrow</kbd> - Increase speed</li>
+            <li><kbd>Down Arrow</kbd> - Decrease speed</li>
+            <li><kbd>Hold R</kbd> - Reverse scrolling direction while key is held</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Found a bug? Have an idea for a feature?</h3>
+          <p>Easier prompter is no longer maintained. Features will not be implemented and bugs will not be fixed.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="prompter">
+      <table id="prompter-lines-container">
+        <tr>
+          <th id="prompter-caret">
+            <svg width="50" height="60">
+              <path
+                d="M 50,35 5,55 5,15 Z"
+                style="fill:#ffffff" />
+            </svg>
+          </th>
+
+          <th>
+            <div id="prompter-lines">
+              <div id="prompter-lines-text"></div>
+              <div id="prompter-lines-end-text"></div>
+            </div>
+          </th>
+        </tr>
+      </table>
+
+      <div id="prompter-options">
+        <button id="options-toggle-run">Start</button>
+
+        <button id="options-toggle-direction">Moving Down</button>
+
+        <span>Speed:</span>
+        <button id="options-speed-down">&lt;</button>
+        <span id="options-current-speed"></span>
+        <button id="options-speed-up">&gt;</button>
+
+        <button id="options-exit">Exit</button>
+      </div>
+    </div>
+
+    <script src="dist/bundle.js"></script>
+  </body>
+</html>

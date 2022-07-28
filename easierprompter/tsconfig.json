@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    // ES5 is supported by pretty much anything and still lets us use new features of JS
+    "target": "es5",
+    // Strict forces you to write code that is "slightly less terrible"
+    "strict": true,
+    // Runs in the browser so use the module system that works for that
+    "module": "es6",
+    // Remove comments
+    "removeComments": true,
+  },
+}
