@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>grg-js</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+    <style>
+      canvas{
+        display: block;
+      }
+      .hidden{
+        display: none;
+      }
+      a{
+        cursor: pointer;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div class="container">
+      <div class="page-header">
+        <h1>grg-js <small>alpha</small></h1>
+      </div>
+
+      <div class="alert alert-danger hidden" id="crash-msg">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Uh Oh...</strong> The game crashed with the following error message:
+        <code id="error-msg" class=""></code>
+        <a onclick="attemptResume();">Click here to try to resume.</a>
+        <span class="hidden" id="restart-fail">Failed to resume. Please tell me what you did to break it and refresh this tab.</span>
+      </div>
+
+      <div class="alert alert-success hidden" id="restart-success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Success! (probably)</strong> The game seems to have resumed without an error, so it is probably working now!
+      </div>
+
+      <p>
+        <a href="https://scratch.mit.edu/projects/120104406/">The original</a> by
+        <a href="https://scratch.mit.edu/users/TriforceMayhem/">TriforceMayhem</a>.
+      </p>
+
+      <canvas id="canvas"></canvas>
+      <button class="btn btn-default" onclick="nextLevel();">Next Level</button>
+      <button class="btn btn-default" onclick="level--;reset();">Prev Level</button>
+      <button class="btn btn-default" onclick="reset();">Reset Level</button>
+      <button class="btn btn-default" onclick="level=9;reset();">Troll Boss</button>
+
+      <p>Notice how this is in <b>ALPHA</b>. That means things are not done. For example:</p>
+
+      <ul>
+        <li>Enemies need some improvements.</li>
+        <li>Some blocks and enemies still need to be implemented.</li>
+        <li>Some missing animations.</li>
+        <li>No audio.</li>
+      </ul>
+
+      <p>Update from the future: The in-game font used to look better, but the license of it is unclear so it was removed.</p>
+    </div>
+
+    <!--<script src="dist/grg.js"></script>-->
+    <!-- <script src="/3rd-party/stats.js"></script> -->
+    <script src="dist/fontAvailible.js"></script>
+    <script src="dist/config.js"></script>
+    <script src="dist/levels.js"></script>
+    <script src="dist/container.js"></script>
+    <script src="dist/sprite.js"></script>
+    <script src="dist/sprites/blocks.js"></script>
+    <script src="dist/sprites/enemies.js"></script>
+    <script src="dist/sprites/bosses.js"></script>
+    <script src="dist/sprites/particles.js"></script>
+    <script src="dist/sprites/projectiles.js"></script>
+    <script src="dist/text.js"></script>
+    <script src="dist/crash.js"></script>
+    <script src="dist/game.js"></script>
+    <script src="dist/assets.js"></script>
+    <script src="dist/tiles.js"></script>
+    <script src="dist/script.js"></script>
+    <script src="dist/bs.js" defer></script>
+  </body>
+</html>

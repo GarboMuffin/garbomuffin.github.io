@@ -1,0 +1,16 @@
+{
+  "name": "grg-js",
+  "version": "1.0.0",
+  "description": "it's like ss-js but grg",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GarboMuffin",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.5",
+    "typescript": "^2.2.1"
+  }
+}
