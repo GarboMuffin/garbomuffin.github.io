@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Super Suits</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <style>
+      canvas{
+        /*border: 1px solid black;*/
+        display: block;
+      }
+      .hidden{
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="jumbotron">
+      <div class="container">
+        <h1>
+          ss-js
+          <small>v2 
+            <small>alpha</small>
+          </small>
+        </h1>
+      </div>
+    </div>
+
+    <div class="container">
+      <p>The images <s>and sounds</s> found in this are from the original. They have been used with permission from the author. (not that Scratch's license requires that anyways)</p>
+      <p><a href="https://scratch.mit.edu/projects/79038438/">The original</a> (where the assets are from) and <a href="https://scratch.mit.edu/users/TriforceMayhem/">its author</a>.</p>
+      <p>Loading... <progress id="progress" value="0" max="1">0%</progress></p>
+
+      <div class="alert alert-danger hidden" id="outputHolder">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Uh Oh</strong> <span id="output"></span> <a href="#" onclick="loop();">Click here to try to restart it.</a>
+      </div>
+
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Can't see the player?</strong> Try presing the <code>Reset</code> button a few times.
+      </div>
+
+      <canvas id="canvas"></canvas>
+      <button class="btn btn-default" onclick="renderLevel();">Reset</button>
+      <button class="btn btn-default" onclick="level++;renderLevel();">Next Level</button>
+      <button class="btn btn-default" onclick="level--;renderLevel();">Prev Level</button>
+      <button class="btn btn-default" onclick="currentSuit=1;unlockedSuits=1;">Fire Suit</button>
+      <button class="btn btn-default" onclick="currentSuit=2;unlockedSuits=2;">Air Suit</button>
+      <button class="btn btn-default" onclick="currentSuit=3;unlockedSuits=3;">Hammer Suit</button>
+
+      <p><abbr title="Estimated Frames Per Second. Updates every 60 frames.">Approximate FPS:</abbr> <samp id="fps">[please wait...]</samp></p>
+
+      <p>Controls:</p>
+      <ul>
+        <li><kbd>WASD</kbd> or <kbd>Arrows</kbd> - Move</li>
+        <li><kbd>W</kbd> or <kbd>Up</kbd> or <kbd>Z</kbd> or <kbd>Space</kbd> - Jump</li>
+        <li><kbd>Down</kbd> or <kbd>S</kbd> - Switch suits</li>
+        <li><kbd>X</kbd> - Projectile</li>
+      </ul>
+      <p>Time for your favorite list of things to add/fix/do:</p>
+      <ul>
+        <li>Add in <s>background music</s> music at all.</li>
+        <li>Slight optimizations to <s>ice</s> any updating block</li>
+        <li title="Maybe they work, maybe they don't. I really don't know.">Layers</li>
+        <li title="It's literally just changing 3 variables until it feels the same as the original.">Physics are little weird, but they are mostly done.</li>
+        <li><s>Animations that change in size</s> Basically any animation</li>
+        <li>Text (probably just going to use a generic monospace font)</li> 
+        <li>Any flashes or stuff like that</li>
+        <li>The ending</li>
+      </ul>
+    </div>
+
+    <!--<script src="js/polyfill.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="dist/config.js"></script>
+    <script src="dist/assets.js"></script>
+    <script src="dist/container.js"></script>
+    <script src="dist/sprite.js"></script>
+    <script src="dist/game.js"></script>
+    <script src="dist/tiles.js"></script>
+    <script src="dist/levels.js"></script>
+    <script src="dist/script.js"></script>
+  </body>
+</html>
