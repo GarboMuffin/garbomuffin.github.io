@@ -46,10 +46,10 @@
               continue;
             }
             for (const [shadowType, inputBlock, shadowBlock] of Object.values(block.inputs)) {
-              if (inputBlock) {
+              if (Array.isArray(inputBlock)) {
                 fixInputArray(inputBlock);
               }
-              if (shadowBlock) {
+              if (Array.isArray(shadowBlock)) {
                 fixInputArray(shadowBlock);
               }
             }
