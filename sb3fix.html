@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <p>Put the sb3 file here:</p>
+
+    <input type="file" accept=".sb3" autocomplete="off">
+
+    <p>And it'll download a version that should be fixed.</p>
+
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.0/dist/jszip.min.js"></script>
+    <script>
+      const download = (blob, name) => {
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.href = url;
+        link.download = name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      };
+
+      const fixInputArray = (input) => {
+        const COLOR_PICKER_PRIMITIVE = 9;
+        if (input[0] === COLOR_PICKER_PRIMITIVE) {
+          if (!/^#[a-fA-F0-9]{6}$/.test(input[1])) {
+            input[1] = '#000000';
+          }
+        }
+      };
+
+      const handleFile = async (file) => {
+        if (!file) {
+          throw new Error('No file');
+        }
+
+        const zip = await JSZip.loadAsync(file);
+        const projectJSON = JSON.parse(await zip.file('project.json').async('text'));
+
+        for (const target of projectJSON.targets) {
+          for (const block of Object.values(target.blocks)) {
+            if (Array.isArray(block)) {
+              continue;
+            }
+            for (const [shadowType, inputBlock, shadowBlock] of Object.values(block.inputs)) {
+              if (inputBlock) {
+                fixInputArray(inputBlock);
+              }
+              if (shadowBlock) {
+                fixInputArray(shadowBlock);
+              }
+            }
+          }
+        }
+
+        const newName = file.name.replace('.sb3', '-fixed.sb3');
+        zip.file('project.json', JSON.stringify(projectJSON));
+        download(await zip.generateAsync({
+          type: 'blob',
+          compression: 'DEFLATE'
+        }), newName);
+      };
+
+      document.querySelector('input[type=file]').addEventListener('change', async (e) => {
+        try {
+          const file = e.target.files[0];
+          await handleFile(file);
+        } catch (e) {
+          console.error(e);
+          alert((e && e.message && e.stack) ? (`Error: ${e.message}\n${e.stack}`) : e);
+        }
+      });
+    </script>
+  </body>
+</html>
