@@ -718,7 +718,7 @@ I really don't like how this page is written, but I don't care enough to rewrite
               tickData += instruments[n.instrument.id].toString().padStart(2, '0');
               tickData += n.key.toString().padStart(2, '0').substr(0, 2);
             } else {
-              tickData += '-';
+              tickData += ':';
             }
           }
           tickData = tickData.trimEnd();
